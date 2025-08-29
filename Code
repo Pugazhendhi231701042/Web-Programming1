@@ -1,0 +1,332 @@
+Week 4
+type code
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Building Material Inventory Management System</title>
+  <style>
+    button{
+      background-color: rgb(76, 175, 80);
+    }
+  </style>
+</head>
+<body>
+  <form>
+
+    <h3>Building Material Inventory</h3>
+    <label for="materialName">Material Name:</label>
+    <input type="text" id="materialName" placeholder="Enter material name">
+    <label for="category">Material Category:</label>
+    <select id="category">
+      <option value="" disabled selected>Select</option>
+      <option value="Cement">Cement</option>
+      <option value="Steel">Steel</option>
+      <option value="Wood">Wood</option>
+    </select>
+    <label for="quantity">Quantity:</label>
+    <input type="number" id="quantity" placeholder="Enter quantity">
+    <label for="supplierName">Supplier Name:</label>
+    <input type="text" id="supplierName" placeholder="Enter supplier name">
+    <label for="costPerUnit">Cost Per Unit:</label>
+    <input type="number" id="costPerUnit" placeholder="Enter cost per unit">
+    <button type="button" id="addMaterialBtn">Submit Material</button>
+    <span id="error-message"></span>
+    <label for="materialTable">Material List:</label>
+    <table id="materialTable">
+      <thead>
+        <tr>
+          <td>Material Name</td>
+          <td>Category</td>
+          <td>Quantity</td>
+          <td>Supplier</td>
+          <td>Cost Per Unit(Rs)</td>
+        </tr>
+      </thead>
+      <tbody>
+        
+      </tbody>
+    </table>
+    <span id="totalProducts">0</span>
+    <span id="mostExpensive">None</span>
+  </form>
+  <script>
+    document.getElementById('addMaterialBtn').addEventListener('click',function(){
+      const name=document.getElementById('materialName').value.trim();
+      const cat=document.getElementById('category').value;
+      const quan=document.getElementById('quantity').value.trim();
+      const sup=document.getElementById('supplierName').value.trim();
+      const cost=document.getElementById('costPerUnit').value.trim();
+      const err=document.getElementById('error-message');
+      if(name===""||cat===""||quan===""||sup===""||cost===""){
+        err.textContent='Please fill out all fields!';
+        return;
+      }
+      err.textContent='';
+      const tbody=document.querySelector('#materialTable tbody');
+      const row=document.createElement('tr');
+      row.innerHTML=`<td>${name}</td><td>${cat}</td><td>${quan}</td><td>${sup}</td><td>${cost}</td>`;
+      tbody.appendChild(row);
+      const tp=document.getElementById('totalProducts');
+      let t=parseInt(tp.textContent);
+      tp.textContent=t+1;
+      const me=document.getElementById('mostExpensive');
+      const mec=me.textContent==='None'?{name:"",cost:0}:{name:me.textContent,cost:parseFloat(me.dataset.cost||0)};
+      const ne=parseFloat(cost);
+      if(ne>mec.cost){
+        me.textContent=name;
+        me.dataset.cost=ne;
+      }
+      document.getElementById('materialName').value='';
+      document.getElementById('category').value='';
+      document.getElementById('quantity').value='';
+      document.getElementById('supplierName').value='';
+      document.getElementById('costPerUnit').value='';
+      
+    });
+  </script>
+</body>
+</html>
+
+
+
+week 4
+fix code
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Music Album Collection Manager</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        button{
+            background-color: rgb(76, 175, 80);
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h3>Music Album Collection</h3>
+    </header>
+    
+    <form>
+        <label for="albumName">Album Name: </label>
+        <input id="albumName" type="text" required placeholder="Enter album name">
+        <br><br>
+        
+        <label for="releaseYear">Release Year: </label>
+        <input id="releaseYear" type="number" required placeholder="Enter release year">
+        <br><br>
+        
+        <label for="genre">Genre: </label>
+        <select id="genre">
+            <option value="Pop">Pop</option>
+            <option value="Rock">Rock</option>
+            <option value="Jazz">Jazz</option>
+            <option value="Clasical">Clasical</option>
+        </select>
+        <br><br>
+        
+        <label for="favorite">Mark as Favorite: </label>
+        <input type="checkbox" id="favorite">
+        <br><br>
+        
+        <button id="addAlbumBtn" type="button">Add Album</button>
+        <span id="error-message"></span>
+    </form>
+
+    <h2>Album List</h2>
+    <ul id="albumList"></ul>
+    
+    <h2>Favorites Album</h2>
+    <ul id="favoriteAlbumList"></ul>
+
+    <script>
+        document.getElementById('addAlbumBtn').addEventListener('click',()=>{
+            const an=document.getElementById('albumName')
+            const ry=document.getElementById('releaseYear')
+            const gn=document.getElementById('genre')
+            const fv=document.getElementById('favorite')
+            const al=document.getElementById('albumList')
+            const fl=document.getElementById('favoriteAlbumList')
+            const em=document.getElementById('error-message')
+            let anv=an.value.trim()
+            let ryn=ry.value.trim()
+            let gnv=gn.value
+            let fvc=fv.checked
+            if(anv===''||ryn===''){
+                em.textContent='Please fill out all fields!'
+                return
+            }
+            let li=document.createElement('li')
+            li.textContent=`${anv} (${ryn}) - ${gnv}`
+            if(fvc){
+                fl.appendChild(li)
+            }else{
+                al.appendChild(li)
+            }
+            an.value=''
+            ry.value=''
+            gn.value='pop'
+            fv.checked=false
+            em.textContent=''
+        })
+    </script>
+</body>
+</html>
+
+
+
+Week 4
+practice home1
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    button{
+      background-color: rgb(41, 168, 71);
+    }
+  </style>
+</head>
+<body>
+  
+  <h1>Habit Tracker</h1>
+  <form>
+    <input type="checkbox" id="chkWater">Drink Water
+    <input type="checkbox" id="chkExercise">Exercise
+    <input type="checkbox" id="chkReading">Read a Book
+    <button type="button" id="mark-progress">Mark Progress</button>
+    <button type="reset" id="reset-progress">Reset</button>
+    <p id="summary">You have completed 0 habits today.</p>
+  </form>
+  <script>
+    document.getElementById('mark-progress').addEventListener('click',()=>{
+      const dr=document.getElementById('chkWater')
+      const wa=document.getElementById('chkExercise')
+      const re=document.getElementById('chkReading')
+      let count=0
+      if(dr.checked){count++}
+      if(wa.checked){count++}
+      if(re.checked){count++}
+      const p=document.getElementById('summary');
+      p.innerHTML=`You have completed ${count} habits today.`;
+    })
+    document.getElementById('reset-progress').addEventListener('click',()=>{
+      const dr=document.getElementById('chkWater')
+      const wa=document.getElementById('chkExercise')
+      const re=document.getElementById('chkReading')
+      dr.checked=false
+      wa.checked=false
+      re.checked=false
+    })
+  </script>
+</body>
+</html>
+
+
+
+Week 4
+pratice home 2
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Multiplication Table Generator</title>
+  <style>
+    button{
+      background-color: rgb(77, 176, 80);
+    }
+  </style>
+</head>
+<body>
+  <h3>Multiplication Table Generator</h3>
+  <label for="number">Enter a number:</label>
+  <input type="number" id="number" placeholder="Enter a number">
+  <label for="start">Start Value:</label>
+  <input type="number" id="start" placeholder="Start of range">
+  <label for="end">End Value:</label>
+  <input type="number" id="end" placeholder="End of range">
+  <button id="generateBtn" type="button">Generate Table</button>
+  <span id="errormessage"></span>
+  <div id="table"></div>
+  <script>
+    document.getElementById('generateBtn').addEventListener('click',()=>{
+      const number=document.getElementById('number')
+      const start=document.getElementById('start')
+      const end=document.getElementById('end')
+      const table=document.getElementById('table')
+      const errormessage=document.getElementById('errormessage')
+      if(number.value===''||start.value===''||end.value===''){
+        errormessage.textContent='All fields are required!'
+        return
+      }
+      let a=parseInt(number.value)
+      let b=parseInt(start.value)
+      let c=parseInt(end.value)
+      table.innerHTML=''
+      for(let i=b;i<=c;i++){
+        table.innerHTML+=`${a} x ${i} = ${a*i}<br>`
+      }
+      errormessage.textContent=''
+      number.value=''
+      start.value=''
+      end.value=''
+    })
+  </script>
+</body>
+</html>
+
+
+
+week 4
+challenge yourself
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Grade Calculator</h1>
+    <label for="marks" id="marksLabel">Enter your marks (0-100):</label>
+    <input type="number" id="marks">
+    <button type="button" id="getGradeButton">Convert</button>
+    <div id="gradeResult"></div>
+    <script>
+        document.getElementById('getGradeButton').addEventListener('click',()=>{
+            const res=document.getElementById('gradeResult')
+            const marks=document.getElementById('marks')
+            if(marks.value===""){
+                res.innerText='Enter any marks to get the grades.'
+                return
+            }
+            let m=parseInt(marks.value)
+            if(m<0||m>100){
+                res.innerText='The marks should be between 0-100.'
+                return
+            }
+            let grade
+            if(m<60) grade='F'
+            else if(m<70) grade='D'
+            else if(m<80) grade='C'
+            else if(m<90) grade='B'
+            else grade='A'
+            res.innerHTML=`For marks ${m}, your grade is:${grade}`
+        })
+    </script>
+</body>
+</html>
+
